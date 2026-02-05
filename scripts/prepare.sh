@@ -1,25 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
+set -e
+set -x 
 
-FAMILY=""
-ARCHITECTURE=""
-
-case "$(uname -s)" in
-    CYGWIN*) FAMILY="cygwin" ;;
-    Linux*) 
-        . /etc/os-release
-        case ${ID} in
-            ubuntu) FAMILY="linux" ;;
-            alpine) FAMILY="alpine" ;;
-            *) FAMILY="linux" ;;
-        esac
-        ;;
-    *) FAMILY="unknown" ;;
+# Check required env variables are set
+case "$FAMILY" in
+  alpine|linux) ;;
+  *)
+    echo "ERROR: invalid FAMILY='$FAMILY' (allowed: alpine|linux)" >&2
+    exit 2
+    ;;
 esac
 
-case "$(uname -m)" in 
-  amd64|x86_64)   ARCHITECTURE="amd64" ;; 
-  *) ARCHITECTURE="x86" ;; 
+case "$ARCHITECTURE" in
+  amd64|arm64) ;;
+  *)
+    echo "ERROR: invalid ARCHITECTURE='$ARCHITECTURE' (allowed: amd64|arm64)" >&2
+    exit 2
+    ;;
 esac
 
 
@@ -78,12 +76,15 @@ cd ${TEMPLATES_DIR}
 tags='$FAMILY,$ARCHITECTURE,$PROJECT,$REPOSITORY,$REPOSITORYID,$VERSION,$BUILD_ID,$TIMESTAMP,$GIT_COMMIT,$GIT_BRANCH,$GIT_URL,$GROUPID,$ARTIFACTID,$PACKAGING'
 
 find . -type f | while read filename; do
-    file=${PROJECT_DIR}/${filename}
-    dir=$(dirname ${file})
-    mkdir -p ${dir}
-    echo "Writing ${file}"
-    envsubst "${tags}" < ${filename} > ${file}
+    echo "Writing ${filename}"
+    file="${SOURCE_DIR}/${filename}"
+    dir="$(dirname "$file")"
+    mkdir -p "$dir"
+    envsubst "$tags" < "$filename" > "$file"
 done
+
+
+
 
 mkdir -p ${BUILD_DIR}
 cd ${BUILD_DIR}
