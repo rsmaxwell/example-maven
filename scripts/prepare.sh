@@ -83,7 +83,7 @@ find . -type f | while read filename; do
     envsubst "$tags" < "$filename" > "$file"
 done
 
-
+tree ${SOURCE_DIR}
 
 
 mkdir -p ${BUILD_DIR}
