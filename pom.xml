@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.rsmaxwell.example</groupId>
-	<artifactId>example-maven_linux_amd64</artifactId>
+	<artifactId>example-maven</artifactId>
 	<version>${revision}</version>
 	<packaging>jar</packaging>
 
