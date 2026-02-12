@@ -43,11 +43,16 @@ SOURCE_DIR=${PROJECT_DIR}/src
 BUILD_DIR=${PROJECT_DIR}/target
 TEMPLATES_DIR=${PROJECT_DIR}/templates
 
+
+
+
 PROJECT=example-maven
 GROUPID=com.rsmaxwell.example
 ARTIFACTID=${PROJECT}
 PACKAGING=pom
 ZIPFILE=${ARTIFACTID}
+
+
 
 TIMESTAMP="$(date '+%Y-%m-%d %H:%M:%S')"
 GIT_COMMIT="${GIT_COMMIT:-(none)}"
