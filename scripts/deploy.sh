@@ -19,7 +19,7 @@ if [ -z "${MAVEN_REPOSITORY_BASE_URL}" ]; then
     exit 1
 fi
 
-DEPLOY_URL="${MAVEN_REPOSITORY_BASE_URL}/repository/${REPOSITORY}"
+DEPLOY_URL="${MAVEN_REPOSITORY_BASE_URL}/${REPOSITORY}"
 
 # Choose correct override based on snapshot-ness
 case "${VERSION}" in
