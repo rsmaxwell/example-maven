@@ -49,6 +49,15 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
+
+		<repository>
+			<id>integration</id>
+			<url>${maven.repository.base.url}/integration</url>
+			<releases>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+		</repository>
+
 		<repository>
 			<id>releases</id>
 			<url>${maven.repository.base.url}/releases</url>
@@ -63,6 +72,10 @@
 			<id>snapshots</id>
 			<url>${maven.repository.base.url}/snapshots</url>
 		</snapshotRepository>
+		<repository>
+			<id>integration</id>
+			<url>${maven.repository.base.url}/integration</url>
+		</repository>
 		<repository>
 			<id>releases</id>
 			<url>${maven.repository.base.url}/releases</url>
