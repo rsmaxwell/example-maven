@@ -19,11 +19,22 @@ if [ -z "${MAVEN_REPOSITORY_BASE_URL}" ]; then
     exit 1
 fi
 
+DEPLOY_URL="${MAVEN_REPOSITORY_BASE_URL}/repository/${REPOSITORY}"
 
+# Choose correct override based on snapshot-ness
+case "${VERSION}" in
+  *-SNAPSHOT)
+    ALT="-DaltSnapshotDeploymentRepository=${REPOSITORYID}::${DEPLOY_URL}"
+    ;;
+  *)
+    ALT="-DaltReleaseDeploymentRepository=${REPOSITORYID}::${DEPLOY_URL}"
+    ;;
+esac
 
 cd ${PROJECT_DIR}
 
 mvn --batch-mode --errors \
     -Drevision=${VERSION} \
     -Dmaven.repository.base.url=${MAVEN_REPOSITORY_BASE_URL} \
+    ${ALT} \
     deploy
